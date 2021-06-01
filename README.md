@@ -33,17 +33,19 @@ R packages:
   - amplicon: GRanges object with potential seismic amplifications and various annotations
   - svs: data.frame with structural variations associated to called seismic amplifications (this is an annotated subset of the provided svs)
 
+## (2) Rearrangement calling with SoReCa
+[SoReCa](http://www.uni-koeln.de/med-fak/soreca/soreca.tgz)
 
-## (2) Simulation of seismic amplification, chromothripsis and breakage-fusion-bridge amplification
+## (3) Simulation of seismic amplification, chromothripsis and breakage-fusion-bridge amplification
 R-scripts for the simulation of seismic amplification, chromothripsis and breakage-fusion-bridge and 
 their combinations. Please refer to the header of the script for details on how to run the 
 simulations. The script contains the complete set of variables and parameters used in the manuscript.
 
-## (3) Simulation of the double minute (DM) evolutionary model
+## (4) Simulation of the double minute (DM) evolutionary model
 A C++ program for the simulation of the DM evolutionary model. Run "compile.sh" to compile the script 
 and create the main executable "simulate-ring-trajectories". Initial chromothripsis setups for three 
 chromosomal regions are provided.
 
-## (4) Microhomology annotation for rearrangement breakpoints
+## (5) Microhomology annotation for rearrangement breakpoints
 A C++ program for the calling of microhomologies at rearrangement breakpoints. Run "make" from 
 within the directory to create the main executable "mh-caller".
