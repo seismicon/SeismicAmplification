@@ -16,7 +16,7 @@ R packages:
 1. Prepare your copy number segmentation data as a GRanges object (chromosome, start and end) with an additional column called "cn"
 2. Prepare your rearrangement breakpoints as a data.frame with at least four columns named "chr1", "bp1", "chr2", "bp2"
 3. Create a GRanges object with UCSC style cytoband information (requires the column "gieStain", with values like "gneg", "gpos25", "acen" etc.). A file for hg19 is provided
-4. Run **detect_seismic_amplification(cnv=MY_CNVs, sv=MY_SVS, chrBands=MV_BANDS)**
+4. Run `detect_seismic_amplification(cnv=MY_CNVs, sv=MY_SVS, chrBands=MV_BANDS)`
 
 #### Detailed list of (optional) parameters:
 
@@ -34,7 +34,34 @@ R packages:
   - svs: data.frame with structural variations associated to called seismic amplifications (this is an annotated subset of the provided svs)
 
 ## (2) Rearrangement calling with SoReCa
-[SoReCa](http://www.uni-koeln.de/med-fak/soreca/soreca.tgz)
+The C++ source code for the SOmatic REarrangement CAlling (SoReCa) used in the manuscript can be downloaded from [here](http://www.uni-koeln.de/med-fak/soreca/soreca.tgz). All genomic annotation files for hg19,hg38 and mm10 and a database of rearrangement calls from normal genomes for filtering are provided in the download.
+
+### Usage
+
+1. Run `soreca enspan` separately for your tumor and normal alignment file to detect encompassing paired-end reads:
+#### enspan parameters:
+- -i: input bam-file (required)
+- -o: output file (prefix only, required)
+- -build: genome build (hg19,hg38,mm10) [hg19]
+- -w: maximal insert size for correct pair [600]
+- -all: show all results
+- -maxr: maximal number of reads to realign [1000]
+- -q: mapping quality filter [1] 
+
+2. Run `soreca unsnarl` with the results from step 1 to generate the list of somatic rearrangement breakpoints:
+#### unsnarl arameters:
+- -inT: input text file for the tumor created by the enspan module (required)
+- -inN: input text file for the matched normal created by the enspan module (required)
+- -o: output file (prefix, required)
+- -adb: add normal to the specified database (prefix: *.Ndb)
+- -db: use database of normal genomes (prefix: *.Ndb)
+- -seg: copy number seg-file (optional)
+- -bam: bam-file of the matched normal (optional)
+- -nc: minimal number of clipped bases [10]
+- -build: genome build (hg19, hg19u, hg38, mm9, mm10) [hg19]
+- -nrn: if this flag is set no read names are shown
+- -w: maximal insert size [600]
+
 
 ## (3) Simulation of seismic amplification, chromothripsis and breakage-fusion-bridge amplification
 R-scripts for the simulation of seismic amplification, chromothripsis and breakage-fusion-bridge and 
